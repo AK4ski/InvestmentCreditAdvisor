@@ -58,12 +58,10 @@ public class Context {
         Integer::valueOf).orElse(365);
     int installmentTypeWeeks = ofNullable(System.getenv(EnvironmentVariables.INSTALLMENT_TYPE_WEEKS))
         .map(Integer::valueOf).orElse(53);
-    int installmentTypeMonths = ofNullable(System.getenv(EnvironmentVariables.INSTALLMENT_TYPE_MONTHS))
-        .map(Integer::valueOf).orElse(12);
 
     map.put(DAYS, installmentTypeDays);
     map.put(WEEKS, installmentTypeWeeks);
-    map.put(MONTHS, installmentTypeMonths);
+    map.put(MONTHS, 12);
 
     return map;
   }
