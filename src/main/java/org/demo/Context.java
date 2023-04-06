@@ -76,7 +76,6 @@ public class Context {
 
     private static final String INSTALLMENT_TYPE_DAYS = "INSTALLMENT_TYPE_DAYS";
     private static final String INSTALLMENT_TYPE_WEEKS = "INSTALLMENT_TYPE_WEEKS";
-    private static final String INSTALLMENT_TYPE_MONTHS = "INSTALLMENT_TYPE_MONTHS";
   }
 
 }

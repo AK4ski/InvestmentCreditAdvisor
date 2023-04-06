@@ -102,7 +102,7 @@ public class HandlerImpl implements Handler {
     dataParser
         .parseMaturity(details.getInstallmentType())
         .ifPresentOrElse(
-            builder::withMaturity,
+            builder::withInstallment,
             () -> allExpectedValuesParsed.set(false));
 
     if (!allExpectedValuesParsed.get()) {
@@ -130,12 +130,14 @@ public class HandlerImpl implements Handler {
     int remainingInstallments = term.getRemainingInstallments();
     int totalYears = remainingInstallments / numberOfTimesInterestReceivements;
 
-    return new Result(loanDetails, calculationService
+    double futureValue = calculationService
         .calculateFutureValue(
             price,
             interestRate,
             numberOfTimesInterestReceivements,
-            totalYears));
+            totalYears);
+
+    return new Result(loanDetails, price - futureValue);
   }
 
   private boolean not(boolean... checks) {

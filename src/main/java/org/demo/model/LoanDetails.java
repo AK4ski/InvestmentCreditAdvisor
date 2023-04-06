@@ -155,7 +155,7 @@ public class LoanDetails {
       return this;
     }
 
-    public LoanDetailsBuilder withMaturity(InstallmentDetails installmentDetails) {
+    public LoanDetailsBuilder withInstallment(InstallmentDetails installmentDetails) {
       this.installmentDetails = installmentDetails;
       return this;
     }

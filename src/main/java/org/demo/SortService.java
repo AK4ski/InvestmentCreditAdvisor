@@ -40,7 +40,8 @@ public class SortService {
       if (sortBy == INSTALLMENT) {
 
         if (sortOrder == ASC) {
-          return results.stream().sorted(loanYieldComparator().thenComparing(loanInstallmentDetailsComparator()))
+          return results.stream().sorted(loanYieldComparator()
+                  .thenComparing(loanInstallmentDetailsComparator()))
               .collect(Collectors.toList());
         }
         if (sortOrder == DESC) {
@@ -51,8 +52,14 @@ public class SortService {
       }
     }
 
+    if (sortOrder != null && sortOrder == ASC) {
+      return results.stream()
+          .sorted(loanYieldComparator())
+          .collect(Collectors.toList());
+    }
+
     return results.stream()
-        .sorted(loanYieldComparator())
+        .sorted(loanYieldComparator().reversed())
         .collect(Collectors.toList());
   }
 
@@ -68,11 +75,11 @@ public class SortService {
     return i.getLoanDetails().getTerm().getRemainingInstallments();
   }
 
-  public Comparator<Result> loanInstallmentDetailsComparator() {
+  private Comparator<Result> loanInstallmentDetailsComparator() {
     return comparing(i -> i.getLoanDetails().getInstallmentDetails(), installmentDetailsComparator());
   }
 
-  public Comparator<InstallmentDetails> installmentDetailsComparator() {
+  private Comparator<InstallmentDetails> installmentDetailsComparator() {
     return comparing(InstallmentDetails::getInstallmentType).thenComparing(InstallmentDetails::getInstallment);
   }
 }
