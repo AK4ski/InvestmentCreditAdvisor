@@ -11,6 +11,10 @@ public class CompoundInterestCalculationService {
    * t   - the time in years; */
   public double calculateFutureValue(double P, double r, double n, double t) {
     double result = P * pow(1 + (r / n), n * t);
+    return getRoundedSum(result);
+  }
+
+  private static double getRoundedSum(double result) {
     return (double) round(result * 100) / 100;
   }
 }

@@ -3,9 +3,9 @@ package org.demo.model;
 public class Result {
 
   private final LoanDetails loanDetails;
-  private final double yield;
+  private final Yield yield;
 
-  public Result(LoanDetails loanDetails, double yield) {
+  public Result(LoanDetails loanDetails, Yield yield) {
     this.loanDetails = loanDetails;
     this.yield = yield;
   }
@@ -14,7 +14,7 @@ public class Result {
     return loanDetails;
   }
 
-  public double getYield() {
+  public Yield getYield() {
     return yield;
   }
 

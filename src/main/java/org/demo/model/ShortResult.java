@@ -3,7 +3,7 @@ package org.demo.model;
 public class ShortResult {
 
   private final String id;
-  private final double yield;
+  private final Yield yield;
   private final Double interestRate;
   private final Price price;
   private final Term term;

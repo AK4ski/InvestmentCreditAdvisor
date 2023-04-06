@@ -64,7 +64,7 @@ public class SortService {
   }
 
   public Comparator<Result> loanYieldComparator() {
-    return comparing(Result::getYield);
+    return comparing(i-> i.getYield().getBgn());
   }
 
   public Comparator<Result> loanTermComparator() {

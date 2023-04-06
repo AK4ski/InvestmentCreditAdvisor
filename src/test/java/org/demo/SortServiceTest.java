@@ -16,6 +16,7 @@ import org.demo.model.RawLoanDetails;
 import org.demo.model.Result;
 import org.demo.model.SortParams;
 import org.demo.model.Term;
+import org.demo.model.Yield;
 import org.junit.jupiter.api.Test;
 
 class SortServiceTest {
@@ -30,9 +31,9 @@ class SortServiceTest {
     LoanDetails loanDetails1 = buildLoanDetails(10, installment1);
     LoanDetails loanDetails2 = buildLoanDetails(10, installment2);
     LoanDetails loanDetails3 = buildLoanDetails(10, installment3);
-    Result resultWithHighestYield = new Result(loanDetails3, 1.75);
-    Result resultWithLowestYield = new Result(loanDetails1, 0.4);
-    Result resultWithAverageYield = new Result(loanDetails2, 0.8);
+    Result resultWithHighestYield = new Result(loanDetails3, toYield(1.75));
+    Result resultWithLowestYield = new Result(loanDetails1, toYield(0.4));
+    Result resultWithAverageYield = new Result(loanDetails2, toYield(0.8));
     SortParams emptySortParams = new SortParams(null, null);
     List<Result> resultList = List.of(resultWithHighestYield, resultWithLowestYield, resultWithAverageYield);
     List<Result> expected = List.of(resultWithHighestYield, resultWithAverageYield, resultWithLowestYield);
@@ -48,9 +49,9 @@ class SortServiceTest {
     LoanDetails loanDetails1 = buildLoanDetails(10, installment);
     LoanDetails loanDetails2 = buildLoanDetails(100, installment);
     LoanDetails loanDetails3 = buildLoanDetails(1000, installment);
-    Result resultWithHighestYield = new Result(loanDetails3, 1.75);
-    Result resultWithLowestYield = new Result(loanDetails1, 0.4);
-    Result resultWithAverageYield = new Result(loanDetails2, 0.8);
+    Result resultWithHighestYield = new Result(loanDetails3, toYield(1.75));
+    Result resultWithLowestYield = new Result(loanDetails1, toYield(0.4));
+    Result resultWithAverageYield = new Result(loanDetails2, toYield(0.8));
     SortParams ascendigSortParams = new SortParams(null, ASC);
     List<Result> resultList = List.of(resultWithHighestYield, resultWithLowestYield, resultWithAverageYield);
     List<Result> expected = List.of(resultWithLowestYield, resultWithAverageYield, resultWithHighestYield);
@@ -69,9 +70,9 @@ class SortServiceTest {
     LoanDetails loanDetails1 = buildLoanDetails(remainingInstallments, installment1);
     LoanDetails loanDetails2 = buildLoanDetails(remainingInstallments, installment2);
     LoanDetails loanDetails3 = buildLoanDetails(remainingInstallments, installment3);
-    Result resultWithHighestInstallment = new Result(loanDetails3, 1);
-    Result resultWithLowestInstallment = new Result(loanDetails1, 1);
-    Result resultWithAverageInstallment = new Result(loanDetails2, 1);
+    Result resultWithHighestInstallment = new Result(loanDetails3, toYield(1));
+    Result resultWithLowestInstallment = new Result(loanDetails1, toYield(1));
+    Result resultWithAverageInstallment = new Result(loanDetails2, toYield(1));
     SortParams sortParams = new SortParams(INSTALLMENT, DESC);
     List<Result> resultList = List.of(resultWithHighestInstallment, resultWithLowestInstallment,
         resultWithAverageInstallment);
@@ -92,9 +93,9 @@ class SortServiceTest {
     LoanDetails loanDetails1 = buildLoanDetails(remainingInstallments, installment1);
     LoanDetails loanDetails2 = buildLoanDetails(remainingInstallments, installment2);
     LoanDetails loanDetails3 = buildLoanDetails(remainingInstallments, installment3);
-    Result resultWithHighestInstallment = new Result(loanDetails3, 1);
-    Result resultWithLowestInstallment = new Result(loanDetails1, 1);
-    Result resultWithAverageInstallment = new Result(loanDetails2, 1);
+    Result resultWithHighestInstallment = new Result(loanDetails3, toYield(1));
+    Result resultWithLowestInstallment = new Result(loanDetails1, toYield(1));
+    Result resultWithAverageInstallment = new Result(loanDetails2, toYield(1));
     SortParams sortParams = new SortParams(INSTALLMENT, ASC);
     List<Result> resultList = List.of(resultWithHighestInstallment, resultWithLowestInstallment,
         resultWithAverageInstallment);
@@ -112,9 +113,9 @@ class SortServiceTest {
     LoanDetails loanDetails1 = buildLoanDetails(10, installment);
     LoanDetails loanDetails2 = buildLoanDetails(20, installment);
     LoanDetails loanDetails3 = buildLoanDetails(30, installment);
-    Result resultWithHighestTerm = new Result(loanDetails3, 1);
-    Result resultWithLowestTerm = new Result(loanDetails1, 1);
-    Result resultWithAverageTerm = new Result(loanDetails2, 1);
+    Result resultWithHighestTerm = new Result(loanDetails3, toYield(1));
+    Result resultWithLowestTerm = new Result(loanDetails1, toYield(1));
+    Result resultWithAverageTerm = new Result(loanDetails2, toYield(1));
     SortParams sortParams = new SortParams(TERM, DESC);
     List<Result> resultList = List.of(resultWithHighestTerm, resultWithLowestTerm, resultWithAverageTerm);
     List<Result> expected = List.of(resultWithHighestTerm, resultWithAverageTerm, resultWithLowestTerm);
@@ -130,9 +131,9 @@ class SortServiceTest {
     LoanDetails loanDetails1 = buildLoanDetails(10, installment);
     LoanDetails loanDetails2 = buildLoanDetails(20, installment);
     LoanDetails loanDetails3 = buildLoanDetails(30, installment);
-    Result resultWithHighestTerm = new Result(loanDetails3, 1);
-    Result resultWithLowestTerm = new Result(loanDetails1, 1);
-    Result resultWithAverageTerm = new Result(loanDetails2, 1);
+    Result resultWithHighestTerm = new Result(loanDetails3, toYield(1));
+    Result resultWithLowestTerm = new Result(loanDetails1, toYield(1));
+    Result resultWithAverageTerm = new Result(loanDetails2, toYield(1));
     SortParams sortParams = new SortParams(TERM, ASC);
     List<Result> resultList = List.of(resultWithHighestTerm, resultWithLowestTerm, resultWithAverageTerm);
     List<Result> expected = List.of(resultWithLowestTerm, resultWithAverageTerm, resultWithHighestTerm);
@@ -159,5 +160,9 @@ class SortServiceTest {
     rawDetails.setPremiumDiscount("premium-discount" + randomUUID());
 
     return rawDetails;
+  }
+
+  private Yield toYield(double yield) {
+    return new Yield(yield, EUR);
   }
 }

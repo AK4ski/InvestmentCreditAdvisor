@@ -1,11 +1,14 @@
 package org.demo;
 
+import static org.demo.file_factory.StrategyFileOutputGenerator.*;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import org.demo.file_factory.FileOutputGenerator;
 import org.demo.file_factory.Handler;
 import org.demo.file_factory.HandlerImpl;
-import org.demo.file_factory.xlsx.XlsxFileOutputGenerator;
+
 import org.demo.model.Result;
 import org.demo.model.ShortResult;
 
@@ -14,13 +17,12 @@ public class Program {
   public static void main(String[] args) {
     final Context context = new Context();
     final ExtensionType fileExtension = getFileExtension(context.getFilePath());
-
-    final XlsxFileOutputGenerator xlsxFileOutputGenerator = new XlsxFileOutputGenerator();
+    final FileOutputGenerator fileOutputGenerator = initializeFileOutputGenerator(fileExtension);
     final RawDataParser rawDataParser = new RawDataParser();
     final CompoundInterestCalculationService calculationService = new CompoundInterestCalculationService();
     final SortService sortService = new SortService();
     final Handler handler = new HandlerImpl(
-        xlsxFileOutputGenerator,
+        fileOutputGenerator,
         rawDataParser,
         calculationService,
         context.getMap());

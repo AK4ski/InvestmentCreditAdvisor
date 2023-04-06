@@ -21,6 +21,7 @@ import org.demo.model.RawLoanDetails;
 import org.demo.model.Result;
 import org.demo.model.Term;
 import org.demo.model.Validation;
+import org.demo.model.Yield;
 
 public class HandlerImpl implements Handler {
 
@@ -127,8 +128,8 @@ public class HandlerImpl implements Handler {
     int numberOfTimesInterestReceivements = slotsInYear / installmentDetails.getInstallment();
 
     Term term = loanDetails.getTerm();
-    int remainingInstallments = term.getRemainingInstallments();
-    int totalYears = remainingInstallments / numberOfTimesInterestReceivements;
+    double remainingInstallments = term.getRemainingInstallments();
+    double totalYears = remainingInstallments / numberOfTimesInterestReceivements;
 
     double futureValue = calculationService
         .calculateFutureValue(
@@ -137,7 +138,7 @@ public class HandlerImpl implements Handler {
             numberOfTimesInterestReceivements,
             totalYears);
 
-    return new Result(loanDetails, price - futureValue);
+    return new Result(loanDetails, new Yield(price - futureValue, loanDetails.getPrice().getCurrency()));
   }
 
   private boolean not(boolean... checks) {
