@@ -22,6 +22,20 @@ public class SortService {
     SortBy sortBy = params.getSortBy();
     SortDirection sortOrder = params.getSortOrder();
     if (sortBy != null && sortOrder != null) {
+      if (sortBy == MATURITY) {
+        if (sortOrder == ASC) {
+          return results
+              .stream()
+              .sorted(loanMaturityComparator())
+              .collect(Collectors.toList());
+        }
+        if (sortOrder == DESC) {
+          return results
+              .stream()
+              .sorted(loanMaturityComparator().reversed())
+              .collect(Collectors.toList());
+        }
+      }
       if (sortBy == TERM) {
 
         if (sortOrder == ASC) {
@@ -64,7 +78,22 @@ public class SortService {
   }
 
   public Comparator<Result> loanYieldComparator() {
-    return comparing(i-> i.getYield().getBgn());
+    return comparing(i -> i.getYield().getBgn());
+  }
+
+  public Comparator<Result> loanMaturityComparator() {
+    return comparing(this::calculateMaturity);
+  }
+
+  private int calculateMaturity(Result result) {
+    int remainingInstallments = result.getLoanDetails().getTerm().getRemainingInstallments();
+    int installments = result.getLoanDetails().getInstallmentDetails().getInstallment();
+    int installmentTypeFactor = result.getLoanDetails()
+        .getInstallmentDetails()
+        .getInstallmentType()
+        .getInstallmentTypeFactor();
+
+    return remainingInstallments * installments * installmentTypeFactor;
   }
 
   public Comparator<Result> loanTermComparator() {

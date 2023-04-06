@@ -19,7 +19,7 @@ public class SortParams {
   }
 
   public enum SortBy {
-    TERM, INSTALLMENT
+    MATURITY, TERM, INSTALLMENT
   }
 
   public enum SortDirection {

@@ -138,7 +138,7 @@ public class HandlerImpl implements Handler {
             numberOfTimesInterestReceivements,
             totalYears);
 
-    return new Result(loanDetails, new Yield(price - futureValue, loanDetails.getPrice().getCurrency()));
+    return new Result(loanDetails, new Yield(futureValue - price, loanDetails.getPrice().getCurrency()));
   }
 
   private boolean not(boolean... checks) {

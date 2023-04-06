@@ -62,7 +62,47 @@ class SortServiceTest {
   }
 
   @Test
-  void defaultSortByInstallmentDesc() {
+  void sortByMaturitydAsc() {
+    InstallmentDetails installment1 = new InstallmentDetails(3, DAYS);
+    InstallmentDetails installment2 = new InstallmentDetails(2, WEEKS);
+    InstallmentDetails installment3 = new InstallmentDetails(1, MONTHS);
+    LoanDetails loanDetails1 = buildLoanDetails(10, installment1);
+    LoanDetails loanDetails2 = buildLoanDetails(10, installment2);
+    LoanDetails loanDetails3 = buildLoanDetails(10, installment3);
+    Result resultWithHighestMaturity = new Result(loanDetails3, toYield(1));
+    Result resultWithLowestMaturity = new Result(loanDetails1, toYield(1));
+    Result resultWithAverageMaturity = new Result(loanDetails2, toYield(1));
+    SortParams ascendigSortParams = new SortParams(MATURITY, ASC);
+    List<Result> resultList = List.of(resultWithAverageMaturity, resultWithHighestMaturity, resultWithLowestMaturity);
+    List<Result> expected = List.of(resultWithLowestMaturity, resultWithAverageMaturity, resultWithHighestMaturity);
+
+    List<Result> actual = service.sort(resultList, ascendigSortParams);
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void sortByMaturitydDesc() {
+    InstallmentDetails installment1 = new InstallmentDetails(3, DAYS);
+    InstallmentDetails installment2 = new InstallmentDetails(2, WEEKS);
+    InstallmentDetails installment3 = new InstallmentDetails(1, MONTHS);
+    LoanDetails loanDetails1 = buildLoanDetails(10, installment1);
+    LoanDetails loanDetails2 = buildLoanDetails(10, installment2);
+    LoanDetails loanDetails3 = buildLoanDetails(10, installment3);
+    Result resultWithHighestMaturity = new Result(loanDetails3, toYield(1));
+    Result resultWithLowestMaturity = new Result(loanDetails1, toYield(1));
+    Result resultWithAverageMaturity = new Result(loanDetails2, toYield(1));
+    SortParams ascendigSortParams = new SortParams(MATURITY, DESC);
+    List<Result> resultList = List.of(resultWithAverageMaturity, resultWithHighestMaturity, resultWithLowestMaturity);
+    List<Result> expected = List.of(resultWithHighestMaturity, resultWithAverageMaturity, resultWithLowestMaturity);
+
+    List<Result> actual = service.sort(resultList, ascendigSortParams);
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void sortByInstallmentDesc() {
     int remainingInstallments = 10;
     InstallmentDetails installment1 = new InstallmentDetails(7, DAYS);
     InstallmentDetails installment2 = new InstallmentDetails(14, DAYS);
@@ -85,7 +125,7 @@ class SortServiceTest {
   }
 
   @Test
-  void defaultSortByInstallmentAsc() {
+  void sortByInstallmentAsc() {
     int remainingInstallments = 10;
     InstallmentDetails installment1 = new InstallmentDetails(7, DAYS);
     InstallmentDetails installment2 = new InstallmentDetails(14, DAYS);
@@ -108,7 +148,7 @@ class SortServiceTest {
   }
 
   @Test
-  void defaultSortByTermDesc() {
+  void sortByTermDesc() {
     InstallmentDetails installment = new InstallmentDetails(7, DAYS);
     LoanDetails loanDetails1 = buildLoanDetails(10, installment);
     LoanDetails loanDetails2 = buildLoanDetails(20, installment);
@@ -126,7 +166,7 @@ class SortServiceTest {
   }
 
   @Test
-  void defaultSortByTermAsc() {
+  void sortByTermAsc() {
     InstallmentDetails installment = new InstallmentDetails(7, DAYS);
     LoanDetails loanDetails1 = buildLoanDetails(10, installment);
     LoanDetails loanDetails2 = buildLoanDetails(20, installment);
